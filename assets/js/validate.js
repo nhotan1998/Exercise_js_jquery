@@ -1,4 +1,4 @@
-    window.addEventListener("load", function () {
+window.addEventListener("load", function () {
     const inputFullName = document.querySelector("#full-name");
     const inputEmail = document.querySelector("#email");
     const inputPhone = document.querySelector("#phone");
@@ -45,8 +45,8 @@
     btnSubmit.addEventListener("click", submitForm);
     btnReset.addEventListener("click", resetForm);
 
-    // Validation 
-    function Validation(selector , msgError = "") {
+    //check validation 
+    function checkValidation(selector , msgError = "") {
         if (msgError) {
         selector.classList.add("is-invalid");
         selector.classList.remove("is-valid");
@@ -56,38 +56,38 @@
             selector.classList.remove("is-invalid");
         }
     }
-    // check Length 
-    function checkLength(selector, field, maxLength) {
+    //function removeClass 
+    function removeClass(selector) {
+        selector.classList.remove("is-valid");
+        selector.classList.remove("is-invalid");
+    }
+    // check Max Length 
+    function checkMaxLength(selector, field, maxLength) {
         if (selector.value.trim().length > maxLength) {
-            return Validation(selector , `${field} max length is ${maxLength} characters`
+            return checkValidation(selector , `${field} max length is ${maxLength} characters`
             );
         } else {
-            Validation(selector);
+            checkValidation(selector);
         }
 
         if (!selector.value) {
-            selector.classList.remove("is-valid");
-            selector.classList.remove("is-invalid");
-            return;
+            removeClass(selector);
         }
     }
 
-    // check regex 
-    function inputValidation(selector, regex, textError = "") {
+    function inputRegexValidation(selector, regex, textError = "") {
         if (!regex.test(selector.value)) {
-            Validation(selector, textError) 
+            checkValidation(selector, textError) 
         }
         if (!selector.value) {
-            selector.classList.remove("is-valid");
-            selector.classList.remove("is-invalid");
-            return;
+            removeClass(selector);
         }
     }
 
     //check regex input FullName
     inputFullName.addEventListener("input", function () {
-        checkLength(inputFullName, "Full Name", 30);
-        inputValidation(inputFullName, removeAscent(regexName), "Invalid Name");
+        checkMaxLength(inputFullName, "Full Name", 30);
+        inputRegexValidation(inputFullName, removeAscent(regexName), "Invalid Name");
     })
 
     //Accented characters
@@ -102,17 +102,17 @@
          str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
          str = str.replace(/đ/g, "d");
          return str;
-     }
+     } 
     
     //Automatically capitalize the first letter
     function fullNameCase(str) {
-    let arr = str.toLowerCase().split(" ");
-    let save = "";
-    arr.forEach(x => {
-        x = x.charAt(0).toUpperCase() + x.substr(1);
-        save += x + " ";
-    });
-    return save;
+        let arr = str.toLowerCase().split(" ");
+        let save = "";
+        arr.forEach(x => {
+            x = x.charAt(0).toUpperCase() + x.substr(1);
+            save += x + " ";
+        });
+        return save;
     }
 
     //Uppercase first characters
@@ -124,14 +124,14 @@
 
     //check regex input Email 
     inputEmail.addEventListener("input", function() {
-        checkLength(inputEmail, "Email", 50);
-        inputValidation(inputEmail, regexEmail, "Invalid Email");
+        checkMaxLength(inputEmail, "Email", 50);
+        inputRegexValidation(inputEmail, regexEmail, "Invalid Email");
     })
 
     // check regex input Phone
     inputPhone.addEventListener("input", function() {
-        checkLength(inputPhone, "Phone", 10);
-        inputValidation(inputPhone, regexPhone, "Start 0 Ex: 0123456789");
+        checkMaxLength(inputPhone, "Phone", 10);
+        inputRegexValidation(inputPhone, regexPhone, "Start 0 Ex: 0123456789");
     })
     
     //check birthday 
@@ -149,43 +149,46 @@
     inputPassword.addEventListener("input", function() {
         if (inputPassword.value.trim().length > 7 && inputPassword.value.trim().length < 30) {
             //Begins with the letter
-            if (!/^[a-zA-Z]{1}/.test(inputPassword.value.trim())) {
-                return Validation(inputPassword, "Password must start with letter")
+            const regexLetter = /^[a-zA-Z]{1}/ ;
+            if (!regexLetter.test(inputPassword.value.trim())) {
+                return checkValidation(inputPassword, "Password must start with letter")
             } else {
-                Validation(inputPassword);
+                checkValidation(inputPassword);
             }
             //Special characters
-            if (!/[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(inputPassword.value.trim())) {
-                return Validation(inputPassword, "Password must contain special characters")
+            const regexCharacter = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/ ;
+            if (!regexCharacter.test(inputPassword.value.trim())) {
+                return checkValidation(inputPassword, "Password must contain special characters")
             } else {
-                Validation(inputPassword);
+                checkValidation(inputPassword);
             }
             //Contains number
-            if (!/[\d]/.test(inputPassword.value.trim())) {
-                return Validation(inputPassword, "Password must contain number")
+            const regexNumber = /[\d]/ ;
+            if (!regexNumber.test(inputPassword.value.trim())) {
+                return checkValidation(inputPassword, "Password must contain number")
             } else {
-                Validation(inputPassword);
+                checkValidation(inputPassword);
             }
             //Uppercase letter
-            if (!/[A-Z]/.test(inputPassword.value.trim())) {
-                return Validation(inputPassword, "Password must have the first character capitalized");
+            const regexUpperCase = /[A-Z]/ ;
+            if (!regexUpperCase.test(inputPassword.value.trim())) {
+                return checkValidation(inputPassword, "Password must have the first character capitalized");
             } else {
-                Validation(inputPassword);
+                checkValidation(inputPassword);
             }
         } else {
-            Validation(inputPassword, "Passwords are 8-30 characters long");
+            checkValidation(inputPassword, "Passwords are 8-30 characters long");
         }
         if (!inputPassword.value) {
-            inputPassword.classList.remove("is-valid");
-            inputPassword.classList.remove("is-invalid");
-          }
+                removeClass(inputPassword);
+            }
     })
     //upload avatar
     btnUpload.addEventListener("change", function () {
         const [avatar] = btnUpload.files;
         if (
-          avatar &&
-          (avatar.type == "image/jpeg" ||
+            avatar &&
+            (avatar.type == "image/jpeg" ||
             avatar.type == "image/png" ||
             avatar.type == "image/jpg")
         ) {
@@ -200,26 +203,24 @@
     //check confirm Password
     inputRePassword.addEventListener("input", function() {
         if (inputPassword.value != inputRePassword.value) {
-            Validation(inputRePassword, "Passwords do not match");
+            checkValidation(inputRePassword, "Passwords do not match");
         } else {
-            Validation(inputRePassword);
+            checkValidation(inputRePassword);
         }
         if (!inputRePassword.value) {
-            inputRePassword.classList.remove("is-invalid");
-            inputRePassword.classList.remove("is-valid");
-
+            removeClass(inputRePassword);
         }
     })
 
     //check FormatDate
     function checkFormatDate(field) {
-        checkLength(inputBirthday, "Birthday", 10);
-        inputValidation(inputBirthday, regexBirthday, "Invalid Birthday");
+        checkMaxLength(inputBirthday, "Birthday", 10);
+        inputRegexValidation(inputBirthday, regexBirthday, "Invalid Birthday");
         const inputValue = field.value.trim();
         const x = inputValue.split("-").reverse();
         const dateCurrent = new Date();
         const dateInput = new Date(x[0],x[1], x[2]);
-        if (dateInput > dateCurrent) Validation(inputBirthday, "Input date is greater than current date");
+        if (dateInput > dateCurrent) checkValidation(inputBirthday, "Input date is greater than current date");
         checkNullField(inputBirthday, "Birthday")
     }
 
@@ -228,11 +229,9 @@
     //check Null Field 
     function checkNullField(field,msg) {
         if (field.value.trim().length < 1) {
-            Validation(field, `${msg} is Required`);
+            checkValidation(field, `${msg} is Required`);
         }
     }
-
-
 
     function submitForm(e) {
         e.preventDefault();
@@ -278,3 +277,4 @@
     }
 
     })
+    
