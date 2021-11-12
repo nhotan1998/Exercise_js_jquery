@@ -201,8 +201,8 @@ window.addEventListener("load", function () {
             checkValidation(inputPassword, "Passwords are 8-30 characters long");
         }
         if (!inputPassword.value) {
-                removeClass(inputPassword);
-            }
+            removeClass(inputPassword);
+        }
     })
 
     //upload avatar
@@ -279,7 +279,6 @@ window.addEventListener("load", function () {
             imgPreview.setAttribute("src", avatarUpload.getAttribute("src"));
             imgPreview.style.display = "block";
             avatarCenter.children[1].style.display = "none";
-
         }
     }
 
@@ -301,3 +300,4 @@ window.addEventListener("load", function () {
         avatarUpload.style.display = "none";
     }
     })
+
