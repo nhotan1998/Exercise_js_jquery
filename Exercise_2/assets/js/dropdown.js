@@ -14,6 +14,7 @@ window.addEventListener("load", function () {
         }
         if (selected === "Select location" || selected === "reset") {
             listSelection[i].className = "list-group-item";
+            return;
         } 
         
         for (let i = 0; i < listSelection.length; i++) {
