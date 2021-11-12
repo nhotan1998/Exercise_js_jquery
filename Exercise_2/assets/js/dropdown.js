@@ -1,30 +1,32 @@
 window.addEventListener("load", function () {
     const selectLocation = document.querySelector(".select-location");
-    const listLocation = document.querySelectorAll(".list-group .list-group-item");
+    const listSelection = document.querySelectorAll(".list-group .list-group-item");
     
     selectLocation.addEventListener("change", function() {
-        let select = this.value;
+        let selected = this.value;
         // clear active class
-        for (let i = 0; i < listLocation.length; i++) {
-            listLocation[i].className = "list-group-item";
+        for (let i = 0; i < listSelection.length; i++) {
+            listSelection[i].className = "list-group-item";
         }
+
+        if (selected === "reset") {
+            selectLocation.selectedIndex = "0";
+        }
+        if (selected === "Select location" || selected === "reset") {
+            listSelection[i].className = "list-group-item";
+        } 
         
-        for (let i = 0; i <= listLocation.length; i++) {
-            if (select === "even") {
+        for (let i = 0; i < listSelection.length; i++) {
+            if (selected === "even") {
                 if (i % 2 !== 0) {
-                    listLocation[i].className += " active";
+                    listSelection[i].classList.add("active");
                 }
-            } else if (select === "odd") {
+            } else if (selected === "odd") {
                 if (i % 2 == 0) {
-                    listLocation[i].className += " active";
+                    listSelection[i].classList.add("active");
                 }
-            } else if (select === "Select location" || select === "reset") {
-                    listLocation[i].className = "list-group-item";
             } else {
-                    listLocation[select - 1].className += " active";
-            }
-            if (select === "reset") {
-                  selectLocation.selectedIndex = "0";
+                    listSelection[selected - 1].classList.add("active");
             }
         }
     })
