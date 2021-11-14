@@ -18,24 +18,13 @@ window.addEventListener("load", function () {
     const avatarCenter = document.querySelector(".avatar-center");
     const btnReset = document.querySelector(".btn-reset");
     
-    
-    /* ValidityState-typeMismatch-email */
-    const regexName = /^([a-zA-Z]+\s)*[a-zA-Z]+$/;
-
-    const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    
-    const regexPhone = /^[0][0-9]{9}/;
-
-    const regexBirthday = /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/;
-
-    
     // click btn shift to submit and click btn delete to reset
     (function () {
         document.querySelector("html").addEventListener("keydown", function (e) {
             //Away 2  e.which == 16
             if (e.key == "Shift") {
                 submitForm(e);
-            } else if (e.key == "Delete"){
+            } else if (e.key == "Delete") {
                 resetForm(e);
             }
         })
@@ -85,22 +74,23 @@ window.addEventListener("load", function () {
 
     //check regex input FullName
     inputFullName.addEventListener("input", function () {
+        const regexName = /^([a-zA-Z]+\s)*[a-zA-Z]+$/;
         checkMaxLength(inputFullName, "Full Name", 30);
-        inputRegexValidation(inputFullName, removeAscent(regexName), "Invalid Name");
+        inputRegexValidation(inputFullName, removeAscented(regexName), "Invalid Name");
     })
 
     //Accented characters
-    function removeAscent(str) {
-        if (str === null || str === undefined) return str;
-         str = str.toLowerCase();
-         str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
-         str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
-         str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
-         str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
-         str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
-         str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
-         str = str.replace(/đ/g, "d");
-         return str;
+    function removeAscented(s) {
+        if (s === null || s === undefined) return s;
+         s = s.toLowerCase();
+         s = s.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+         s = s.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+         s = s.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+         s = s.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+         s = s.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+         s = s.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+         s = s.replace(/đ/g, "d");
+         return s;
      } 
     
     //Automatically capitalize the first letter
@@ -123,12 +113,14 @@ window.addEventListener("load", function () {
 
     //check regex input Email 
     inputEmail.addEventListener("input", function() {
+        const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         checkMaxLength(inputEmail, "Email", 50);
         inputRegexValidation(inputEmail, regexEmail, "Invalid Email");
     })
 
     // check regex input Phone
     inputPhone.addEventListener("input", function() {
+        const regexPhone = /^[0][0-9]{9}/;
         checkMaxLength(inputPhone, "Phone", 10);
         inputRegexValidation(inputPhone, regexPhone, "Start 0 Ex: 0123456789");
     })
@@ -158,15 +150,6 @@ window.addEventListener("load", function () {
         }
     }
 
-    //function check password
-    function checkPassword(selector, regex, textError = "") {
-        if (!regex.test(selector.value.trim())) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     //check input password , minLength , maxLength 
     inputPassword.addEventListener("input", function() {
         const MAX_LENGTH = 31 ;
@@ -175,31 +158,18 @@ window.addEventListener("load", function () {
         const regexCharacter = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/ ;
         const regexNumber = /[\d]/ ;
         const regexUpperCase = /[A-Z]/ ;
-        
-        if (checkLength(inputPassword, MIN_LENGTH , MAX_LENGTH)) {
-            if (checkPassword(inputPassword, regexLetter)) {
-                return checkValidation(inputPassword, 'Password must start with letter');
-            } else {
-                checkValidation(inputPassword);
-            }
-            if (checkPassword(inputPassword, regexCharacter)) {
-                return checkValidation(inputPassword, "Password must contain special characters");
-            } else {
-                checkValidation(inputPassword);
-            }
-            if (checkPassword(inputPassword, regexNumber)) {
-                return checkValidation(inputPassword, "Password must contain number");
-            } else {
-                checkValidation(inputPassword);
-            }
-            if (checkPassword(inputPassword, regexUpperCase)) {
-                return checkValidation(inputPassword, "Password must have the first character capitalized");
-            } else {
-                checkValidation(inputPassword);
-            }
-        } else {
-            checkValidation(inputPassword, "Passwords are 8-30 characters long");
+
+        if (checkLength(inputPassword, MIN_LENGTH, MAX_LENGTH)) {
+            checkValidation(inputPassword);
+            inputRegexValidation(inputPassword, regexCharacter, "Password must contain special characters");
+            inputRegexValidation(inputPassword, regexNumber, "Password must contain number");
+            inputRegexValidation(inputPassword, regexUpperCase, "Password must have the first character capitalized");
+            inputRegexValidation(inputPassword, regexLetter, "Password must start with letter");
+        } 
+        else {
+            checkValidation(inputPassword, "Password are 8-30 characters long");
         }
+        
         if (!inputPassword.value) {
             removeClass(inputPassword);
         }
@@ -210,14 +180,12 @@ window.addEventListener("load", function () {
         const [avatar] = btnUpload.files;
         const arr = ["image/jpeg","image/png","image/jpg"];
         
-        if (
-            avatar && arr.includes(avatar.type)
-        ) {
-          avatarUpload.style.display = "block";
-          avatarUpload.src = URL.createObjectURL(avatar);
-          iconUploadAvatar.style.display = "none";
+        if (avatar && arr.includes(avatar.type)) {
+            avatarUpload.style.display = "block";
+            avatarUpload.src = URL.createObjectURL(avatar);
+            iconUploadAvatar.style.display = "none";
         } else {
-          avatarWrapper.children[2].textContent = "Not file img";
+            avatarWrapper.children[2].textContent = "Not file img";
         }
       });
 
@@ -235,6 +203,7 @@ window.addEventListener("load", function () {
 
     //check FormatDate
     function checkFormatDate(field) {
+        const regexBirthday = /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/;
         checkMaxLength(inputBirthday, "Birthday", 10);
         inputRegexValidation(inputBirthday, regexBirthday, "Invalid Birthday");
         let inputValue = field.value.trim();
@@ -299,5 +268,5 @@ window.addEventListener("load", function () {
         iconUploadAvatar.style.display = "block";
         avatarUpload.style.display = "none";
     }
-    })
+})
 
