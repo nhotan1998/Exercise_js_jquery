@@ -62,8 +62,8 @@ window.addEventListener("load", function () {
             removeClass(selector);
         }
     }
-
-    function inputRegexFullNameValidation(selector, regex, textError = "") {
+    //Remove Accents  Username
+    function inputRegexUserNameValidation(selector, regex, textError = "") {
         if (!regex.test(removeAscent(selector.value))) {
             checkValidation(selector, textError);
         }
@@ -82,7 +82,7 @@ window.addEventListener("load", function () {
     inputFullName.addEventListener("input", function () {
         const regexName = /^([a-zA-Z]+\s)*[a-zA-Z]+$/;
         checkMaxLength(inputFullName, "Full Name", 30);
-        inputRegexFullNameValidation(inputFullName, regexName, "Password must be letter");
+        inputRegexUserNameValidation(inputFullName, regexName, "Password must be letter");
     })
 
     //Accented characters
@@ -149,7 +149,8 @@ window.addEventListener("load", function () {
 
     //function check minLength , check maxLength
     function checkLength(selector , minLength , maxLength) {
-        if (selector.value.trim().length > minLength && selector.value.trim().length < maxLength ) {
+        const getInputLength = selector.value.trim();
+        if (getInputLength.length > minLength && getInputLength.length < maxLength ) {
             return true ;
         } else {
             return false;
@@ -180,20 +181,23 @@ window.addEventListener("load", function () {
             removeClass(inputPassword);
         }
     })
+    // function validate Image
+    function validateImage(image,array) {
+        if (image && array.includes(image.type)) {
+            avatarUpload.style.display = "block";
+            avatarUpload.src = URL.createObjectURL(image);
+            iconUploadAvatar.style.display = "none";
+        } else {
+            avatarWrapper.children[2].textContent = "Not file img";
+        }
+    }
 
     //upload avatar
     btnUpload.addEventListener("change", function () {
         const [avatar] = btnUpload.files;
         const arr = ["image/jpeg","image/png","image/jpg"];
-        
-        if (avatar && arr.includes(avatar.type)) {
-            avatarUpload.style.display = "block";
-            avatarUpload.src = URL.createObjectURL(avatar);
-            iconUploadAvatar.style.display = "none";
-        } else {
-            avatarWrapper.children[2].textContent = "Not file img";
-        }
-      });
+        validateImage(avatar,arr)
+    });
 
     //check confirm Password
     inputRePassword.addEventListener("input", function() {
@@ -221,7 +225,6 @@ window.addEventListener("load", function () {
         let dateCurrent = new Date(yyy,mm,dd).getTime();
         let dateInput = new Date(x[0],x[1], x[2]).getTime();
         if (dateInput > dateCurrent) checkValidation(inputBirthday, "Input date is greater than current date");
-        checkNullField(inputBirthday, "Birthday")
     }
 
 
@@ -240,6 +243,7 @@ window.addEventListener("load", function () {
         checkNullField(inputPhone, "Phone");
         checkNullField(inputPassword, "Password");
         checkNullField(inputRePassword, "Re-password");
+        checkNullField(inputBirthday, "Birthday")
         checkFormatDate(inputBirthday);
 
         const listInvalid = document.querySelectorAll("input.is-invalid");
