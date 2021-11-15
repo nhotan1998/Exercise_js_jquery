@@ -8,7 +8,6 @@ window.addEventListener("load", function () {
         for (let i = 0; i < listSelection.length; i++) {
             listSelection[i].className = "list-group-item";
         }
-
         if (selected === "reset") {
             selectLocation.selectedIndex = "0";
         }
@@ -16,7 +15,6 @@ window.addEventListener("load", function () {
             listSelection[i].className = "list-group-item";
             return;
         } 
-        
         for (let i = 0; i < listSelection.length; i++) {
             if (selected === "even") {
                 if (i % 2 !== 0) {
@@ -30,7 +28,7 @@ window.addEventListener("load", function () {
                     listSelection[selected - 1].classList.add("active");
             }
         }
-    })
-})
+    });
+});
 
 
