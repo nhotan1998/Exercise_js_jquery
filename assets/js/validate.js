@@ -62,8 +62,8 @@ window.addEventListener("load", function () {
             removeClass(selector);
         }
     }
-    //Remove Accents  Username
-    function inputRegexUserNameValidation(selector, regex, textError = "") {
+    
+    function inputRegexFullNameValidation(selector, regex, textError = "") {
         if (!regex.test(removeAscent(selector.value))) {
             checkValidation(selector, textError);
         }
@@ -80,9 +80,9 @@ window.addEventListener("load", function () {
 
     //check regex input FullName
     inputFullName.addEventListener("input", function () {
-        const regexName = /^([a-zA-Z]+\s)*[a-zA-Z]+$/;
+        const regexName = /^[a-zA-Z\\s]+/;
         checkMaxLength(inputFullName, "Full Name", 30);
-        inputRegexUserNameValidation(inputFullName, regexName, "Password must be letter");
+        inputRegexFullNameValidation(inputFullName, regexName, "Full Name must be letter");
     })
 
     //Accented characters
@@ -133,13 +133,6 @@ window.addEventListener("load", function () {
     
     //check birthday 
     inputBirthday.addEventListener("input", function() {
-        if (this.value.length == 2) {
-            this.value = this.value + "-";
-        }
-        if (this.value.length == 5) {
-            this.value = this.value + "-";
-        }
-
         if (this.value.length == 8 && !isNaN(this.value)) {
             this.value = this.value.substr(0,2) + "-" 
             + this.value.substr(2,2) + "-" + this.value.substr(4,4)
