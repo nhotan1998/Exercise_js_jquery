@@ -120,6 +120,12 @@ body {
     border-radius: 3px;
     font-size: 1em;
 }
+.messages-inputArea .messages-input {
+    width: 100px;
+    height: 50px;
+    overflow-y: auto;
+    word-break: break-word;
+}
 .messages-input {
     flex: 1;
     background: #ddd;
