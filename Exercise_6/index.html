@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Table</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Table</h2>
+                <table class="table table-bordered" id="myTable">
+                    <thead>
+                        <tr scope="col">
+                            <th>
+                                <input type="checkbox" id="checkBoxAll" onclick="myCheckAll()" /><br />
+                            </th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-title">
+                            <td>
+                                <input type="checkbox" id="checkbox" />
+                            </td>
+                            <td>
+                                Nguyễn Văn A
+                            </td>
+                            <td>
+                                09292029829
+                            </td>
+                            <td>
+                                VanA@gmail.com
+                            </td>
+                            <td><input type="button" value="Delete" onclick='myDeleteOneRow(this)' /></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary btn-add" onclick="myCreateFunction()">ADD</button>
+                <button class="btn btn-danger btn-delete" onclick="myDeleteFunction()">DELETE</button>
+            </div>
+        </div>
+    </div>
+    <script src="./assets/js/table.js"></script>
+</body>
+
+</html>
