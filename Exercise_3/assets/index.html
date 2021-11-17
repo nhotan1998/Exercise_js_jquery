@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <title>Form Chat</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+
+            <!-- Form 1 -->
+            <div class="col-sm-6">
+                <section class="messages form1">
+                    <header class="messages-header">
+                        <div class="messages-header-title">
+                            <img class="avatar-head avatar-userTan" src="./assets/images/nhotan.jpg" alt=""> Lê Nho Tân
+                        </div>
+                    </header>
+
+                    <main class="messages-chat"></main>
+
+                    <div class="list-btn">
+                        <button class="btn btn-bold" onclick="document.execCommand('bold',false,null);">Đậm</button>
+                        <button class="btn btn-italic"
+                            onclick="document.execCommand('italic',false,null);">Nghiêng</button>
+                        <button class="btn btn-reset">Reset</button>
+                    </div>
+                    <form class="messages-inputArea">
+                        <div class="messages-input" contenteditable="true">
+                        </div>
+                        <button type="submit" class="messages-send-btn">Send</button>
+                    </form>
+                </section>
+            </div>
+
+            <!-- Form 2 -->
+            <div class="col-sm-6">
+                <section class="messages form2">
+                    <header class="messages-header">
+                        <div class="messages-header-title">
+                            <img class="avatar-head avatar-userDuy" src="./assets/images/anhduy.png" alt=""></i>Võ Đình
+                            Duy
+                        </div>
+                    </header>
+
+                    <main class="messages-chat">
+                    </main>
+                    <div class="list-btn">
+                        <button class="btn btn-bold" onclick="document.execCommand('bold',false,null);">Đậm</button>
+                        <button class="btn btn-italic"
+                            onclick="document.execCommand('italic',false,null);">Nghiêng</button>
+                        <button class="btn btn-reset">Reset</button>
+                    </div>
+                    <form class="messages-inputArea">
+                        <div class="messages-input" contenteditable="true">
+                        </div>
+                        <button type="submit" class="messages-send-btn">Send</button>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script src="./assets/js/formchat.js"></script>
+</body>
+
+</html>
