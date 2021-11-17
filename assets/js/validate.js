@@ -155,7 +155,7 @@ window.addEventListener("load", function () {
         const MAX_LENGTH = 31 ;
         const MIN_LENGTH = 7 ;
         const regexLetter = /^[a-zA-Z]{1}/ ;
-        const regexCharacter = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/ ;
+        const regexCharacter = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
         const regexNumber = /[\d]/ ;
         const regexUpperCase = /[A-Z]/ ;
 
@@ -219,8 +219,6 @@ window.addEventListener("load", function () {
         let dateInput = new Date(x[0],x[1], x[2]).getTime();
         if (dateInput > dateCurrent) checkValidation(inputBirthday, "Input date is greater than current date");
     }
-
-
 
     //check Null Field 
     function checkNullField(field,msg) {
