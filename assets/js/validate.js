@@ -80,7 +80,7 @@ window.addEventListener("load", function () {
 
     //check regex input FullName
     inputFullName.addEventListener("input", function () {
-        const regexName = /^[a-zA-Z\\s]+/;
+        const regexName = /^[a-zA-Z\s]+$/;
         checkMaxLength(inputFullName, "Full Name", 30);
         inputRegexFullNameValidation(inputFullName, regexName, "Full Name must be letter");
     })
