@@ -9,7 +9,6 @@
 
     
     handleEvent('click',true);
-    handleEvent('focusout',false);
     // delete one row
     function myDeleteOneRow(selector) {
         const x = selector.parentNode.parentNode.rowIndex;
