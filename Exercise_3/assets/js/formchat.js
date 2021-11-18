@@ -56,11 +56,25 @@ window.addEventListener("load", function () {
   // reset btn data
   (function () {
     btnResetForm1.addEventListener("click", function () {
+      if (btnBold1.classList.contains("active")) {
+        btnBold1.style.border = "0px";
+      }
+      if (btnItalic1.classList.contains("active")) {
+        btnItalic1.style.border = "0px";
+      }
+
       if (inputMsg1.innerHTML) {
         inputMsg1.innerHTML = "";
       }
     });
     btnResetForm2.addEventListener("click", function () {
+      if (btnBold2.classList.contains("active")) {
+        btnBold2.style.border = "0px";
+      }
+      if (btnItalic2.classList.contains("active")) {
+        btnItalic2.style.border = "0px";
+      }
+
       if (inputMsg2.innerHTML) {
         inputMsg2.innerHTML = "";
       }
@@ -70,8 +84,12 @@ window.addEventListener("load", function () {
   function formSubmit(event, user, msgInput) {
     event.preventDefault();
     const message = msgInput.innerHTML;
-    showData(user, message);
-    cleanValue(msgInput);
+    if (message) {
+      showData(user, message);
+      cleanValue(msgInput);
+    } else {
+      alert("Please enter text to send")
+    }
   }
   
     // form chat 1

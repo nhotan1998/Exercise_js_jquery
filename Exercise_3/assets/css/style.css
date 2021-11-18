@@ -71,6 +71,9 @@ body {
     border-radius: 10px;
     background: #fff;
 }
+.msg-text {
+    word-break: break-all;
+}
 .msg-info {
     display: flex;
     justify-content: space-between;
