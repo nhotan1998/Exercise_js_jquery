@@ -8,13 +8,13 @@
     var arrayRow = getRow.length;
 
     
-    handleEvent('dblclick',true);
+    handleEvent('click',true);
     handleEvent('focusout',false);
     // delete one row
     function myDeleteOneRow(selector) {
         const x = selector.parentNode.parentNode.rowIndex;
         table.deleteRow(x);
-        handleEvent("dblclick",true);
+        handleEvent("click",true);
     }
     
     // add row
@@ -26,12 +26,12 @@
         const cell4 = row.insertCell(3);
         const cell5 = row.insertCell(4);
         cell1.innerHTML = "<input type='checkbox' id='checkbox' />";
-        cell2.innerHTML = "<p></p>";
-        cell3.innerHTML = "<p></p>";
-        cell4.innerHTML = "<p></p>";
+        cell2.innerHTML = "<p class='nameTable'></p>";
+        cell3.innerHTML = "<p class='emailTable'></p>";
+        cell4.innerHTML = "<p class='phoneTable'></p>";
         cell5.innerHTML = "<td><input type='button' value='delete' onclick='myDeleteOneRow(this)'/></td>";
         arrayRow++;
-        handleEvent("dblclick",true);
+        handleEvent("click",true);
         handleEvent("focusout",false);
     }
     // delete row
@@ -40,21 +40,35 @@
         inputChecked.forEach(x => {
             if (x.checked) {
                 x.parentNode.parentNode.remove();
+                checkBoxAll.checked = false;
             }
         })
         arrayRow--;
-        handleEvent("dblclick",true);
+        handleEvent("click",true);
     }
     // handleEvent
     function handleEvent(event,status) {
         const arrayCell = getCell.length;
-        for (let i = 0; i < arrayRow; i++) {
-            for (let j = 0; j < arrayCell; j++) {
-                getCell[j].addEventListener(event, function() {
-                    getCell[j].contentEditable = status;
+        const regexName = /^[a-zA-Z\s]+$/;
+        const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const regexPhone = /^[0][0-9]{9}/;
+            for (let i = 0; i < arrayCell; i++) {
+                getCell[i].addEventListener(event, function() {
+                    getCell[i].contentEditable = status;
+                    if (event === "focusout") {
+                        if (getCell[i].children[0].classList.contains("nameTable")) {
+                            checkValidate(regexName,getCell[i].textContent);
+                        }
+                        if (getCell[i].children[0].classList.contains("emailTable")) {
+                            checkValidate(regexEmail,getCell[i].textContent);
+                        }
+                        if (getCell[i].children[0].classList.contains("phoneTable")) {
+                            checkValidate(regexPhone,getCell[i].textContent);
+                        }
+                    }
                 })
             }
-        }
+        
     } 
     // checkAll
     function myCheckAll() {
@@ -63,8 +77,14 @@
             if (checkBoxAll.checked) {
                 x.checked = true;
             } else {
-                return x.checked = false;
+                x.checked = false;
             }
         })
     }
 
+    // Validate
+    function checkValidate(regex,message) {
+        if(!regex.test(message)) {
+            alert("Invalid");
+        }
+    }
